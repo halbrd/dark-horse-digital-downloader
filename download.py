@@ -13,6 +13,7 @@ with open('input.json') as f:
 urls = [ 
 	( entry['startedDateTime'], entry['request']['url'] )
 for entry in obj['log']['entries'] if re.match(URL_PATTERN, entry['request']['url'])]
+urls.sort(key=lambda x: x[0])
 
 # make sure /images exists
 if not os.path.exists('images'):
@@ -26,5 +27,4 @@ def dl_image(url):
 	del response
 
 for url in urls:
-	print(url)
 	dl_image(url)
